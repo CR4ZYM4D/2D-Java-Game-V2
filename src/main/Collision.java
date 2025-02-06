@@ -59,7 +59,7 @@ public class Collision {
                     entity.is_colliding = true;
             break;
             case "right":
-                entity_right_column = (entity_world_right - entity.speed) / gp.tileSize;
+                entity_right_column = (entity_world_right + entity.speed) / gp.tileSize;
                 tile_1 = gp.tm.mapTileNum[entity_top_row][entity_right_column];
                 tile_2 = gp.tm.mapTileNum[entity_bottom_row][entity_right_column];
                 if(gp.tm.tile[tile_1].can_collide == true || gp.tm.tile[tile_2].can_collide == true)

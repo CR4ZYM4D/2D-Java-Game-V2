@@ -26,7 +26,7 @@ public class Player extends Entity {
         player_x = gp.maxScreenCol/2*gp.tileSize - gp.tileSize/2;
         player_y = gp.maxScreenRow/2*gp.tileSize - gp.tileSize/2;
 
-        hitbox = new Rectangle(0,0,gp.tileSize,gp.tileSize);
+        hitbox = new Rectangle(5,0,40,40);
         
         worldx=gp.maxScreenCol/2*gp.tileSize;
         worldy=gp.maxScreenRow/2*gp.tileSize;
