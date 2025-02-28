@@ -9,7 +9,20 @@ public class KeyHandler implements KeyListener{
     public boolean boost=false;
     @Override
     public void keyTyped(KeyEvent e) {
-        //throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+
+        int code  = e.getKeyCode();
+
+        if(code == KeyEvent.VK_W)
+            input[0] = true;
+        if(code == KeyEvent.VK_S)
+            input[1] = true;
+        if(code == KeyEvent.VK_A)
+            input[2] = true;
+        if(code == KeyEvent.VK_D)
+            input[3] = true;
+        if(code == KeyEvent.VK_SHIFT)
+            boost=true;
+
     }
 
     @Override
@@ -19,15 +32,15 @@ public class KeyHandler implements KeyListener{
 
         if(code == KeyEvent.VK_W)
             input[0] = true;
-        else if(code == KeyEvent.VK_S)
+        if(code == KeyEvent.VK_S)
             input[1] = true;
-        else if(code == KeyEvent.VK_A)
+        if(code == KeyEvent.VK_A)
             input[2] = true;
-        else if(code == KeyEvent.VK_D)
+        if(code == KeyEvent.VK_D)
             input[3] = true;
-        else if(code == KeyEvent.VK_SHIFT)
+        if(code == KeyEvent.VK_SHIFT)
             boost=true;
-        
+
     }
 
     @Override

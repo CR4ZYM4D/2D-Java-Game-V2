@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import object.Object;
 import tile.TileManager;
 
 
@@ -68,5 +69,73 @@ public class Collision {
 
         }
     
+    }
+
+    //function that checks if player is colliding with some object if any
+    public int checkObject(Entity entity , boolean player){
+
+        int object_index=Integer.MAX_VALUE;
+
+        for(int j =0; j<gp.object_list.length ; j++){
+
+            Object i = gp.object_list[j];
+            
+            if(i!=null){
+                //finding global coordinates of entity hitbox in X and Y
+                entity.hitbox.x += entity.worldx;
+                entity.hitbox.y += entity.worldy;
+
+                //finding global X and Y coordinates of object hitbox
+                i.hitbox.x += i.world_x;
+                i.hitbox.y += i.world_y;
+
+                switch (entity.direction) {
+                    case "up":
+                    entity.hitbox.y-=entity.speed;
+                    if(entity.hitbox.intersects(i.hitbox)){
+                        if(i.is_collidable)
+                            entity.is_colliding= true;
+                        if(player)
+                            object_index=j;
+                    }
+                    break;
+                    case "down":
+                    entity.hitbox.y+=entity.speed;
+                    if(entity.hitbox.intersects(i.hitbox)){
+                        if(i.is_collidable)
+                            entity.is_colliding= true;
+                        if(player)
+                            object_index=j;
+                    }
+                    break;
+                    case "left":
+                    entity.hitbox.x-=entity.speed;
+                    if(entity.hitbox.intersects(i.hitbox)){
+                        if(i.is_collidable)
+                            entity.is_colliding= true;
+                        if(player)
+                            object_index=j;
+                    }
+                    break;
+                    case "right":
+                    entity.hitbox.x+=entity.speed;
+                    if(entity.hitbox.intersects(i.hitbox)){
+                        if(i.is_collidable)
+                            entity.is_colliding= true;
+                        if(player)
+                            object_index=j;
+                    }
+                    break;
+                }
+
+                //resetting hitbox positions
+                entity.hitbox.x = entity.hitbox_default_x;
+                entity.hitbox.y = entity.hitbox_default_y;
+                i.hitbox.x = i.hitbox_default_x;
+                i.hitbox.y = i.hitbox_default_y;
+            } 
+        }
+
+        return object_index;
     }
 }

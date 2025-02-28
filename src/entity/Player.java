@@ -26,12 +26,15 @@ public class Player extends Entity {
         player_x = gp.maxScreenCol/2*gp.tileSize - gp.tileSize/2;
         player_y = gp.maxScreenRow/2*gp.tileSize - gp.tileSize/2;
 
-        hitbox = new Rectangle(5,0,40,40);
+        hitbox = new Rectangle(3,3,42,42);
+
+        hitbox_default_x = hitbox.x;
+        hitbox_default_y = hitbox.y;
         
         worldx=gp.maxScreenCol/2*gp.tileSize;
         worldy=gp.maxScreenRow/2*gp.tileSize;
-        speed=2;
-        boost_speed=3;
+        speed=4;
+        boost_speed=5;
         direction="up";
 
     }
@@ -41,8 +44,14 @@ public class Player extends Entity {
         //needed to re-update direction after collision else player cannot move after colliding for first time
         directionUpdate(0);
         is_colliding = false;
+        
+        //checking tile collision
         gp.collider.checkTile(this);
         
+        //checking object collision
+        int object_index = gp.collider.checkObject(this, true);
+        interactWithObject(object_index);
+
         //stopping the player if it is colliding with some tile
         if(!is_colliding ){
             if(ki.boost){
@@ -53,10 +62,32 @@ public class Player extends Entity {
         }
         //updating the sprites to make some sort of animation
         spriteCounter++;
-        if(spriteCounter==25){
+        if(spriteCounter==10){
             spriteCounter=0;
             spriteNum= (spriteNum+2)%3;
         }
+    }
+
+    //function to handle object interaction
+    public void interactWithObject(int object_index){
+
+        if(object_index != Integer.MAX_VALUE){
+
+            String object_name = gp.object_list[object_index].name;
+
+            //if player collides with an object collect it
+            switch(object_name){
+
+                case "Key":
+                    gp.object_list[object_index]=null;
+                break;
+
+            }
+
+
+        }
+
+
     }
 
     private void directionUpdate(int s) {

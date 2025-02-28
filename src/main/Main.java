@@ -20,6 +20,11 @@ public class Main {
         window.setLocationRelativeTo(null);
 
         window.setVisible(true);
+
+        //setting up the object assets
+        gp.setUpWorld();
+
+        //starting the gameloop
         gp.startGameThread();
 
     }
